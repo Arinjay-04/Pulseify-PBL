@@ -5,12 +5,12 @@ import axios from 'axios';
 import './LoginForm.css';
 
 const LoginForm = () => {
-  const [Number, setNumber] = useState('');
+  const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleMobileChange = (e) => {
-    setNumber(e.target.value);
+  const handleemailChange = (e) => {
+    setemail(e.target.value);
   }
 
   const handlePasswordChange = (e) => {
@@ -19,20 +19,12 @@ const LoginForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3001/login', { Number, password })
+    axios.post('http://localhost:3001/register', { email , password })
       .then(result => {
-        console.log(result.data)
-        if (result.data === "successfull") { // Adjust this condition based on actual response
-          navigate('/register'); // Redirect to the home page
-        } else {
-          // Handle unsuccessful login, perhaps show an error message
-          console.log("Login unsuccessful");
-        }
+        console.log(result);
+        navigate('/register');
       })
-      .catch(err => {
-        console.error(err);
-        // Handle error, perhaps show an error message
-      });
+      .catch(err => console.log(err));
   }
 
   return (
@@ -41,7 +33,7 @@ const LoginForm = () => {
         <h1>Login</h1>
 
         <div className='Input-Box'>
-          <input type='Number' placeholder='Mobile Number' value={Number} onChange={handleMobileChange} required />
+          <input type='email' placeholder='email' value={email} onChange={handleemailChange} required />
           <FaMobileAlt className='icon' />
         </div>
 

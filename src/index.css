@@ -16,10 +16,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: flex;
-  justify-content: center;
+  justify-content: left;
+  margin-left: 30px;
   align-items: center;
   height: 120vh;
-  background: url('./components/Assets/Backgrounf.jpg')
+  background: url('./components/Assets/newbg1.jpg')
   no-repeat;
   background-size: cover;
   background-position: center;

@@ -1,27 +1,31 @@
-// SignupForm.js
-import  { useState } from "react";
-import { FaUser, FaLock, FaEnvelope, FaMobileAlt, FaAddressCard, FaRegUserCircle } from 'react-icons/fa';
+import React, { useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { FaUser, FaLock, FaEnvelope, FaMobileAlt, FaAddressCard } from 'react-icons/fa';
 import { MdOutlineLocationOn } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import './signUpForm.css';
-import axios from 'axios'
+import axios from 'axios';
+
+
+
 
 const SignupForm = () => {
+  const [showModal, setShowModal] = useState(false);
   const [firstname, setFName] = useState('');
   const [lastname, setLName] = useState('');
   const [Number, setNumber] = useState('');
   const [email, setemail] = useState('');
-  const [Adhar, setAdhar] = useState('');
-  const [LAddress, setLAddress] = useState('');
-  const [LCode, setLCode] = useState('');
-  const [FAddress, setFAddress] = useState('');
-  const [FCode, setFCode] = useState('');
-  const [FArea, setFArea] = useState('');
+  const [dob, setdob] = useState(new Date());
+  const [Address, setAddress] = useState('');
+  const [Code, setCode] = useState('');
   const [password, setpassword] = useState('');
   const [cpassword, setCpassword] = useState('');
+  const [messageColor, setMessageColor] = useState('');
+const [messageText, setMessageText] = useState('');
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleFirstNameChange = (e) => {
     setFName(e.target.value);
@@ -39,51 +43,72 @@ const SignupForm = () => {
     setemail(e.target.value);
   }
 
-  const handleAdharChange = (e) => {
-    setAdhar(e.target.value);
+  const handleAddressChange = (e) => {
+    setAddress(e.target.value);
   }
 
-  const handleLAddressChange = (e) => {
-    setLAddress(e.target.value);
+  const handleCodeChange = (e) => {
+    setCode(e.target.value);
   }
 
-  const handleLCodeChange = (e) => {
-    setLCode(e.target.value);
-  }
 
-  const handleFAddressChange = (e) => {
-    setFAddress(e.target.value);
-  }
-  const handleFCodeChange = (e) => {
-    setFCode(e.target.value);
-  }
-  const handleFAreaChange = (e) => {
-    setFArea(e.target.value);
-  }
   const handlePasswordChange = (e) => {
-    setLName(e.target.value);
+    const enteredPassword = e.target.value;
+    setpassword(enteredPassword);
+
+    if (enteredPassword === cpassword) {
+      setMessageColor('green');
+      setMessageText('Passwords match!');
+    } else {
+      setMessageColor('');
+      setMessageText('');
+    }
   }
+
   const handleCPasswordChange = (e) => {
-    setLName(e.target.value);
+    const enteredCPassword = e.target.value;
+    setCpassword(enteredCPassword);
+
+    if (password === enteredCPassword) {
+      setMessageColor('green');
+      setMessageText('Passwords match!');
+    } else {
+      setMessageColor('red');
+      setMessageText("Password Didn't match");
+    }
   }
 
 
-
-  // Add similar functions for other input fields
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3001/register', {firstname, lastname , Number, email, Adhar , LAddress, LCode , FAddress , FCode , FArea, password , cpassword})
-    .then(result => {console.log(result)
-          navigate('/login')   
-    })
-    .catch(err => console.log(err))
+
+    if (password !== cpassword) {
+      setShowModal(true); 
+      return;
+    }
+
+    axios.post('http://localhost:3001/register', { firstname, lastname, email, dob, Address, Code, password, cpassword, Number })
+      .then(result => {
+        console.log(result);
+        navigate('/login');
+      })
+      .catch(err => console.log(err));
   }
+  const currentDate = new Date();
+  const minDate = new Date(currentDate.getFullYear() - 70, currentDate.getMonth());
+
+  
+  const closeModal = () => {
+    setShowModal(false);
+  }
+
 
   return (
     <div className='wrapper'>
-      <form onSubmit={handleSubmit}>
-        <h1>Signup</h1>
+    <form onSubmit={handleSubmit}>
+      <h1>Signup</h1>
+
 
         <div className='Input-Box'>
           <input type='text' placeholder='First Name' value={firstname} onChange={handleFirstNameChange} required />
@@ -91,52 +116,55 @@ const SignupForm = () => {
         </div>
 
         <div className='Input-Box'>
-          <input type='Mobile Number' placeholder='Mobile Number '   value={Number} onChange={handleMobileChange}  required />
-          <FaMobileAlt  className='icon' />
+          <input type='tel' placeholder='Mobile Number ' value={Number} onChange={handleMobileChange} required />
+          <FaMobileAlt className='icon' />
         </div>
 
         <div className='Input-Box'>
-          <input type='email' placeholder='Email'  value={email} onChange={handleEmailChange}  />
+          <input type='email' placeholder='Email' value={email} onChange={handleEmailChange} required />
           <FaEnvelope className='icon' />
         </div>
 
-        
         <div className='Input-Box'>
-          <input type='Adharcard' placeholder='Adharcard Number '  value={Adhar} onChange={handleAdharChange} required />
-          <FaRegUserCircle  className='icon' />
+          <DatePicker
+            selected={dob}
+            onChange={date => setdob(date)}
+            placeholderText='Date of Birth'
+            dateFormat='dd/MM/yyyy'
+            showYearDropdown
+            scrollableYearDropdown
+            yearDropdownItemNumber={70}
+            popperPlacement="bottom"
+            minDate={minDate}
+          />
+          <FaUser className='icon' />
         </div>
 
-
         <div className='Input-Box'>
-          <input type='Local Address' placeholder='Residents Address'  value={LAddress} onChange={handleLAddressChange} required />
+          <input type='text' placeholder='Residents Address' value={Address} onChange={handleAddressChange} required />
           <FaAddressCard className='icon' />
         </div>
 
         <div className='Input-Box'>
-          <input type='Local Address pincode' placeholder='Residents Address Pincode'  value={LCode} onChange={handleLCodeChange} required />
+          <input type='text' placeholder='Residents Address Pincode' value={Code} onChange={handleCodeChange} required />
           <MdOutlineLocationOn className='icon' />
         </div>
 
         <div className='Input-Box'>
-          <input type='Farm Address' placeholder='Farm  Address'  value={FAddress} onChange={handleFAddressChange} required />
-          <FaAddressCard className='icon' />
-        </div>
-
-        <div className='Input-Box'>
-          <input type='Farm Address pincode' placeholder='Farm Address Pincode' value={FCode} onChange={handleFCodeChange} required />
-          <MdOutlineLocationOn className='icon' />
-        </div>
-
-        <div className='Input-Box'>
-          <input type='Area of farm ' placeholder='Area of Farm ' value={FArea} onChange={handleFAreaChange} required />
-        </div>
-
-
-        <div className='Input-Box'>
-          <input type='password' placeholder='Password' value={password} onChange={(e) => setpassword(e.target.value)} required />
+          <input type='password' placeholder='Password' value={password} onChange={handlePasswordChange} required />
           <FaLock className='icon' />
-          <input type='password' placeholder='Confirm-Password' value={cpassword} onChange={(e) => setCpassword(e.target.value)} required />
+          <input type='password' placeholder='Confirm-Password' value={cpassword} onChange={handleCPasswordChange} required />
         </div>
+        {showModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={closeModal}>&times;</span>
+            <p className="error-message">Passwords do not match</p>
+          </div>
+        </div>
+      )}
+
+      <p id="Message" style={{ color: messageColor }}>{messageText}</p>
 
         <button type='submit' className='b1'>Signup</button>
 
@@ -144,6 +172,7 @@ const SignupForm = () => {
           <p>Already have an account? <Link to="/login">Login Here</Link></p>
         </div>
       </form>
+      
     </div>
   );
 };
