@@ -11,23 +11,57 @@
    
   }
 
-body {
-  font-family: 'Poppins', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  display: flex;
-  justify-content: left;
-  margin-left: 30px;
-  align-items: center;
-  height: 120vh;
-  background: url('./components/Assets/newbg1.jpg')
-  no-repeat;
-  background-size: cover;
-  background-position: center;
-
-}
+  body {
+    font-family: 'Poppins', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    display: flex;
+    justify-content: left;
+    margin-left: 70px; /* Updated margin */
+    align-items: center;
+    min-height: 100vh; /* Changed height to min-height */
+    background-color: ghostwhite;
+    box-shadow: 100px;
+    border-width: 100px;
+    /* background: url('./components/Assets/Screenshot\ 2024-03-14\ 031206.png'); */
+    /* no-repeat; */
+    background-size: cover;
+    background-position: center;
+    
+  }
+  
+  .container {
+    display: flex;
+    align-items: center; /* Align items vertically */
+  }
+  
+  .form-container {
+    flex: 1; /* Take up remaining space */
+    padding: 20px;
+    max-width: 50%; /* Limit maximum width to prevent compression */
+  }
+  
+  .image-container {
+    padding: 20px;
+  }
+  
+  
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.image {
+  max-width: 700px; /* Adjust the maximum width as needed */
+  height: auto; /* Maintain aspect ratio */
+}
+
+/* Additional styles if necessary */
+.login-image {
+  /* Add specific styles for the login image if needed */
+}
+
+.signup-image {
+  /* Add specific styles for the signup image if needed */
 }

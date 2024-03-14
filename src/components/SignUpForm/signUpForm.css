@@ -1,16 +1,20 @@
+
 .wrapper {
     width: 420px;
-    background-color: transparent;
-    border: 2px solid rgba(255, 255, 255, .2);
-    backdrop-filter: blur(5px);
-    color: white;
-    padding: 20px; /* Adjusted padding */
-    margin: 30px auto; /* Center the wrapper on the page */
-    box-sizing: border-box; /* Include padding and border in the box sizing */
+    background-color: white;
+    border: 20px solid rgba(255, 255, 255, .2);
+    backdrop-filter: blur(50px);
+    color: grey;
+     /* Adjusted padding */
+    margin-right: 50%; /* Center the wrapper on the page */
+     /* Include padding and border in the box sizing */
+
+     box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
 }
 
 .wrapper h1 {
     font-size: 40px;
+    color: black;
     text-align: center;
     padding: 20px 0; /* Adjusted padding */
     font-weight: bold;
@@ -20,32 +24,36 @@
     position: relative;
     width: 100%;
     height: 50px;
-    margin: 10px 0; /* Adjusted margin */
+    margin: 20px 0px; /* Adjusted margin */
     display: flex;
+    
+    
 }
 
 .Input-Box input {
     width: calc(100% - 20px); /* Adjusted width */
     height: 100%;
-    background-color: transparent;
-    border: 2px solid rgba(255, 255, 255, .2);
-    border-radius: 40px;
+    background-color: #F8F8FF;
+    /* border: 2px solid rgba(255, 255, 255, .2); */
+    /* border-radius: 40px; */
     font-size: 16px;
-    color: white;
+    color: darkgray;
     padding: 15px; /* Adjusted padding */
-    margin: 0 10px;
+    margin: 10px 10px;
     box-sizing: border-box; /* Include padding and border in the box sizing */
+    border: 1px light #000; /* Adding border to signup box */
+    /* Adding border radius */
+    padding: 20px; /* Adding padding */
 }
 
 .Input-Box input::placeholder{
-    color: white;
+    color: grey;
     
 }
-
 .Input-Box .icon {
     position: absolute;
     right: 40px;
-    top: 15px;
+    top: 25px;
     font-size: 20px;;
 }
 
@@ -79,11 +87,12 @@
 .wrapper .registration-link{
     text-align: center;
     margin-top: 10px;
+    color: black;
 }
 
 
 .wrapper .registration-link a{
-    color: white;
+    color: #00008B;
     margin-left: 10px; 
 }
 

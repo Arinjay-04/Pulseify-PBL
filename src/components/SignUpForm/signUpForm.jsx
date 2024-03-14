@@ -102,12 +102,15 @@ const [messageText, setMessageText] = useState('');
   const closeModal = () => {
     setShowModal(false);
   }
-
+  
+  
 
   return (
     <div className='wrapper'>
     <form onSubmit={handleSubmit}>
       <h1>Signup</h1>
+
+      
 
 
         <div className='Input-Box'>
@@ -118,13 +121,9 @@ const [messageText, setMessageText] = useState('');
         <div className='Input-Box'>
           <input type='tel' placeholder='Mobile Number ' value={Number} onChange={handleMobileChange} required />
           <FaMobileAlt className='icon' />
-        </div>
-
-        <div className='Input-Box'>
           <input type='email' placeholder='Email' value={email} onChange={handleEmailChange} required />
           <FaEnvelope className='icon' />
         </div>
-
         <div className='Input-Box'>
           <DatePicker
             selected={dob}
@@ -172,8 +171,9 @@ const [messageText, setMessageText] = useState('');
           <p>Already have an account? <Link to="/login">Login Here</Link></p>
         </div>
       </form>
-      
     </div>
+    
+    
   );
 };
 
